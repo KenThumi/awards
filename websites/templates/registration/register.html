@@ -15,7 +15,15 @@
            {% bootstrap_form form%}
            <input type="submit" class="btn btn-success btn-sm" value="Sign Up">
          </form>
+
+         <div class="border-top mt-1 pt-3">
+            <small class="text-muted">
+                Already Have an Account? <a href="{% url 'login'%}" class="ml-2">Sign In</a>
+            </small>
+        </div>
+       
       </div>
+  
   </div>
 </div>
 {% endblock %}
