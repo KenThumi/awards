@@ -1,3 +1,4 @@
+from django.contrib import messages
 from websites.email import send_welcome_email
 from websites.forms import UserRegisterForm
 from django.shortcuts import redirect, render
@@ -25,6 +26,8 @@ def register(request):
             form.save()
 
             send_welcome_email(form.cleaned_data['username'], form.cleaned_data['email'])
+
+            messages.success(request, 'Successful Registration.')
 
             return redirect('login')
 
