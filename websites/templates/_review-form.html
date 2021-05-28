@@ -1,0 +1,21 @@
+  <!--Copy Link Modal -->
+  {% load bootstrap4 %} {% load static %}
+  <div class="modal fade" id="modal-{{project.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+            <div class="row p-2">
+                    <div class="col-12">
+                        <h4>Add Review</h4>
+                        <hr>
+                        <form   method="post" enctype="multipart/form-data">
+                            {%csrf_token%}
+                         
+                            {% bootstrap_form reviewform%}
+                            <input type="submit" class="btn btn-success btn-sm" value="Add Review">
+                          </form>
+                    </div>
+
+            </div>
+      </div>
+    </div>
+  </div>

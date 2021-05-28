@@ -1,6 +1,7 @@
 from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 class Profile(models.Model):
     profile_photo = CloudinaryField('image')
@@ -64,3 +65,27 @@ class Project(models.Model):
 
     def __str__(self):
         return f'Image: {self.title} '
+
+
+
+class Review(models.Model):
+    design = models.IntegerField( validators=[
+                                    MaxValueValidator(10),
+                                    MinValueValidator(0)
+                                ])
+
+    usability = models.IntegerField( validators=[
+                                    MaxValueValidator(10),
+                                    MinValueValidator(0)
+                                ])
+
+    content = models.IntegerField( validators=[
+                                    MaxValueValidator(10),
+                                    MinValueValidator(0)
+                                ])
+
+    project = models.OneToOneField(
+                Project,
+                on_delete=models.CASCADE,
+                related_name='review'
+            )

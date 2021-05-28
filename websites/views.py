@@ -1,7 +1,7 @@
 from websites.models import Profile, Project
 from django.contrib import messages
 from websites.email import send_welcome_email
-from websites.forms import ProfileForm, ProjectForm, UserRegisterForm
+from websites.forms import ProfileForm, ProjectForm, ReviewForm, UserRegisterForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 import cloudinary.uploader
@@ -11,7 +11,9 @@ import cloudinary.uploader
 def home(request):
     projects = Project.objects.all()
 
-    ctx = {'projects':projects}
+    reviewform = ReviewForm()
+
+    ctx = {'projects':projects, 'reviewform':reviewform}
 
     return render(request,'index.html', ctx)
 
