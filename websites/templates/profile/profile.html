@@ -36,8 +36,17 @@
                     </span>
                 </li>
                 <li class="list-group-item">
+                    Contact <span class="text-muted">
+                        {% if user.profile.contact %}
+                        <p> {{user.profile.contact}}</p>
+                        {%else%}
+                        <p> {{user.username| title}} has no contact given </p>
+                        {% endif %}
+                    </span>
+                </li>
+                <li class="list-group-item">
                     Bio <span class="text-muted">
-                        {% if user.profile %}
+                        {% if user.profile.bio %}
                         <p> {{user.profile.bio}}</p>
                         {%else%}
                         <p> {{user.username| title}} has no bio </p>
