@@ -1,0 +1,11 @@
+.card img{
+    cursor: pointer;
+    height: 250px !important;
+    width: 100%;
+}
+
+@media(max-width:768px){
+    .card img{
+        height: 175px !important; 
+    }
+}

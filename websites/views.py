@@ -1,7 +1,7 @@
-from websites.models import Profile
+from websites.models import Profile, Project
 from django.contrib import messages
 from websites.email import send_welcome_email
-from websites.forms import ProfileForm, UserRegisterForm
+from websites.forms import ProfileForm, ProjectForm, UserRegisterForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 import cloudinary.uploader
@@ -9,10 +9,11 @@ import cloudinary.uploader
 
 @login_required
 def home(request):
+    projects = Project.objects.all()
 
+    ctx = {'projects':projects}
 
-
-    return render(request,'index.html')
+    return render(request,'index.html', ctx)
 
 
 
@@ -73,3 +74,28 @@ def remove_prefix(text, prefix):
     if text.startswith(prefix):
         return text[len(prefix):]
     return text
+
+
+def addProject(request):
+    form = ProjectForm()
+    if request.method=='POST':
+        form = ProjectForm(request.POST,request.FILES)
+
+        file_to_upload = request.FILES['image']
+      
+        if form.is_valid():
+            upload_result = cloudinary.uploader.upload(file_to_upload)
+            new_result = remove_prefix(upload_result['secure_url'],'https://res.cloudinary.com/dtw9t2dom/')
+
+            project = Project(image=new_result,
+                          title=form.cleaned_data['title'],
+                          description=form.cleaned_data['description'],
+                          link=form.cleaned_data['link'],
+                          user=request.user,)
+
+            project.save_project()
+
+            messages.success(request, 'Successful upload.')
+            return redirect('home')
+
+    return render(request, 'addproject.html', {'form':form})

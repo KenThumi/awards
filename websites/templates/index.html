@@ -1,10 +1,50 @@
 {%extends "base.html"%}
 {% load bootstrap4 %}
 {% block content %}
-<div class="container">
-  <div class="row">
-        <h3>Lorem Ipsum</h3>
-  </div>
-</div>
+{{block.super}}
 
+<div class="container-fluid my-2">
+   <div class="row">
+   
+       <div class="col-12">
+           <a href="{% url 'addproject' %}" class="btn btn-info float-right btn-sm">
+            <span class="text-center">
+                Upload Photo <i class="fas fa-upload"></i>
+            </span>
+           </a>
+       </div>
+       
+       <div class="col-12">
+        <hr>
+       </div>
+
+        <!-- results -->
+       {%for project in projects %}
+       <div class="col-md-4">
+                <div class="card mb-3" style="width: 100%;">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="{{project.image.url}}" alt="{{project.title}}">
+                    </a>
+                    <div class="card-body">
+                        <h4>{{project.title | title}}</h4>
+                    </div>
+                
+            </div>
+            
+       </div>
+     {%empty%}
+     <div class="text-center">
+         
+                No records   
+     </div>
+     {%endfor%}
+      
+   </div>
+</div>
+<!-- copyrights -->
+<div class="mt-1 text-center">
+    <small class="text-center">
+    Copyright © 2021 Awards Inc. All Rights Reserved
+    </small>
+</div>
 {% endblock %}

@@ -34,8 +34,8 @@ class Profile(models.Model):
 
 
 class Project(models.Model):
-    image = CloudinaryField('image')
     title = models.CharField(max_length=60)
+    image = CloudinaryField('image')
     link = models.CharField(max_length=200)
     description = models.TextField()
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='projects')
@@ -43,7 +43,7 @@ class Project(models.Model):
     
 
 
-    def save_image(self):
+    def save_project(self):
         return self.save()
        
 
