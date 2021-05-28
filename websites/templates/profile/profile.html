@@ -1,0 +1,172 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container my-2">
+    <div class="row">
+        <!-- flash messages -->
+       {% if messages %}
+            <div class="col-12">
+                
+                {% for msg in messages %}
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{msg.message}}
+                </div>
+                {% endfor %}
+            
+            </div>
+        {% endif %}
+        <div class="col-md-4 offset-md-2">
+            {% if user.profile %}
+
+            <img src="{{user.profile.profile_photo.url }}" alt="" class="rounded-circle img-thumbnail">
+
+            {%else%}
+            <ul class="list-group mt-md-3">
+                <li class="list-group-item">
+                      <p>No profile picture</p>
+                </li>
+                <br>
+                <li class="list-group-item ">
+                    <a href="{% url 'addprof' user.id%}" class="btn btn-sm btn-outline-warning mx-auto d-block my-2">
+                        <i class="fas fa-plus-circle mr-1" aria-hidden="true"></i>
+                        Add Bio </a>
+                </li>
+            </ul>
+
+            {% endif %}
+
+    
+        </div>
+        <div class="col-md-4">
+            <ul class="list-group mt-3">
+                <li class="list-group-item">
+                    <h3> {{user.username| title}} </h3>
+                </li>
+                <li class="list-group-item">
+                    Email <span class="text-muted">
+                    <p>{{user.email}}</p> 
+                    </span>
+                </li>
+                <li class="list-group-item">
+                    Bio <span class="text-muted">
+                        {% if user.profile %}
+                        <p> {{user.profile.bio}}</p>
+                        {%else%}
+                        <p> {{user.username| title}} has no bio </p>
+                        {% endif %}
+                    </span>
+                
+            </ul>
+            
+       
+        </div>
+    
+    </div>
+    <div class="row">
+        <!-- user post -->
+             <div class="col-12">
+                <h4 class="text-center mt-3">
+                    My Images
+                </h4>
+                <hr>
+             </div>
+            
+              <!-- images -->
+        
+            {%for image in user.profile.images.all %}
+                <div class="col-md-6">
+                        <div class="card my-3" style="width: 100%;">
+                            <div class="card-header">
+                                <div >
+                                       <div class="float-left">
+                                              <img src="{% firstof image.profile.profile_photo.url  'https://res.cloudinary.com/dtw9t2dom/image/upload/v1621726020/akfqmmsh2bcebfxmkizd.png' %}" alt="{{image.profile.user.username}}" class="img-fluid rounded-circle float-left" style="width: 50px;">
+                                              <div class="ml-2 float-left ln-3">
+                                                  {{image.profile.user.username}}
+                                              </div>
+                                       </div>
+                                       <div class="float-right inline-block ln-3">
+                                           <a href="{% url 'like' image.id%}" class="links">
+                                            like<i class="fas fa-heart ml-2"></i>
+                                           </a>
+
+                                           <a href="{% url 'comment' image.id%}" class="links ml-5">
+                                            comment<i class="fas fa-comment ml-2"></i>
+                                           </a>
+                                       </div>
+                                </div>
+                            </div>
+                            <a href="{% url 'openimage' image.id %}" target="_blank">
+                                <img class="imge img-fluid" src="{{image.image.url}}" alt="lorem">
+                            </a>
+                            <div class="card-body">
+                                <p>
+                                    Likes: <strong>
+                                        {{ image.likes }}
+                                    </strong>
+                                </p>
+                                <p>
+                                    {{image.name | title}}
+                                </p>
+                                <p>
+                                    <a href="#" class="links btn btn-sm btn-outline-info"  data-toggle="modal" data-target="#modal-{{image.id}}">
+                                        view comments<i class="fas fa-comments ml-2"></i>
+                                       </a>
+                                </p>
+                            </div>
+                            {% if user.is_authenticated %}
+                                {% if user == image.profile.user %}
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="text-center">
+                                                <a href="{% url 'edit' image.id%}">
+                                                    <span class="text-center">
+                                                        
+                                                        <div >
+                                                          Edit
+                                                            <i class="fas fa-edit ml-1"></i>
+                                                        </div>
+                                                        
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                   
+                                        <div class="col-4 text-center">
+                                            <a href="{% url 'delete_image' image.id%}"   onclick="return confirm('Confirm Delete')">
+                                                <span class="text-center">
+                                                    <div>
+                                                         Delete
+                                                        <i class="fas fa-trash-alt ml-1"></i>
+                                                    </div> 
+                                                    
+                                                    
+                                                </span>
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {%endif%}
+                    </div>
+                    {% include '_comment_modal.html' %}
+                </div>
+            {%empty%}
+            <div class="text-center">
+                
+                        No records   
+            </div>
+            {%endfor%}
+            <!-- end images -->
+
+       
+        
+  
+
+    
+
+</div>
+</div>
+{% endblock %}
