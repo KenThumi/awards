@@ -1,21 +1,8 @@
-{% extends 'base.html' %}
+{% extends '../base.html' %}
 {% load bootstrap4 %} {% load static %}
 
 {% block content %}
 <div class="container my-2">
-    <!-- flash messages -->
-    {% if messages %}
-    <div class="col-12">
-        
-        {% for msg in messages %}
-        <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            {{msg.message}}
-        </div>
-        {% endfor %}
-    
-    </div>
-  {% endif %}
   <div class="text-center">
     <h4>Add Bio</h4>
   </div>
