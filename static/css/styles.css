@@ -1,11 +1,11 @@
-.card img{
+.card-home img{
     cursor: pointer;
     height: 250px !important;
     width: 100%;
 }
 
 @media(max-width:768px){
-    .card img{
+    .card-home img{
         height: 175px !important; 
     }
 }

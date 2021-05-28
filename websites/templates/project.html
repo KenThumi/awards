@@ -1,0 +1,40 @@
+{%extends "base.html"%}
+{% load bootstrap4 %}
+{% block content %}
+{{block.super}}
+
+<div class="container-fluid my-2">
+   <div class="row">
+
+        <!-- results -->
+       
+       <div class="col-md-8 offset-md-2">
+                <div class="card mb-3" style="width: 100%;">
+                    <a href="#" target="_blank">
+                        <img class="img-fluid" src="{{project.image.url}}" alt="{{project.title}}">
+                    </a>
+                    <div class="card-body">
+                        <h4>{{project.title | title}}</h4>
+                        <p class="text-muted">
+                            {{project.description}}
+                        </p>
+                        <p>
+                            <a href="{{ project.link }}" target="_blank">
+                                link <i class="fas fa-link ml-1"></i>
+                            </a>
+                        </p>
+                    </div>
+                
+            </div>
+            
+       </div>
+      
+   </div>
+</div>
+<!-- copyrights -->
+<div class="mt-1 text-center">
+    <small class="text-center">
+    Copyright © 2021 Awards Inc. All Rights Reserved
+    </small>
+</div>
+{% endblock %}

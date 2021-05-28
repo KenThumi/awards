@@ -75,7 +75,7 @@ def remove_prefix(text, prefix):
         return text[len(prefix):]
     return text
 
-
+@login_required
 def addProject(request):
     form = ProjectForm()
     if request.method=='POST':
@@ -99,3 +99,10 @@ def addProject(request):
             return redirect('home')
 
     return render(request, 'addproject.html', {'form':form})
+
+@login_required
+def project(request,id):
+    project = Project.objects.get(pk=id)
+
+
+    return render(request,'project.html',{'project':project})
