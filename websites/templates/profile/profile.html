@@ -1,5 +1,5 @@
 {% extends '../base.html'%}
-
+{% load mathfilters %}
 {% block content %}
 <div class="container my-2">
     <div class="row">
@@ -59,6 +59,90 @@
         </div>
     
     </div>
+    <div class="row">
+        <!-- user post -->
+             <div class="col-12">
+                <h4 class="text-center mt-3">
+                    My projects
+                </h4>
+                <hr>
+             </div>
+            
+              <!-- images -->
+        
+            {%for project in user.projects.all %}
+                <div class="col-md-6">
+                    <div class="card mb-3" style="width: 100%;">
+                        <a href="#" target="_blank">
+                            <img class="img-fluid" src="{{project.image.url}}" alt="{{project.title}}">
+                        </a>
+                        <div class="card-body">
+                            <h4>{{project.title | title}}</h4>
+                            <p class="text-muted">
+                                {{project.description}}
+                            </p>
+                            <p>
+                                Project by: <strong>
+                                    {{ project.user}}
+                                </strong>
+                            </p>
+                            <p>
+                                <a href="{{ project.link }}" target="_blank">
+                                    link <i class="fas fa-link ml-1"></i>
+                                </a>
+                            </p>
+                            <p>
+                                <hr>
+                                Overall Ratings(Out of 10): <br>
+                                {% if project.review %}
+                                    Content - <strong>
+                                    
+                                        {{project.review.content|div:project.review.count |floatformat:1 }}
+                                    </strong>, <br>
+                                    Design - <strong>
+                                        {{ project.review.design|div:project.review.count |floatformat:1 }}
+                                    </strong> , <br>
+                                    Usability - <strong>
+                                        {{ project.review.usability|div:project.review.count |floatformat:1 }}
+                                    </strong>
+                                {%else%}
+                                    Content - <strong>
+                                        
+                                        None
+                                    </strong>, <br>
+                                    Design - <strong>
+                                        None
+                                    </strong> , <br>
+                                    Usability - <strong>
+                                        None
+                                    </strong>
+                                {%endif%}
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="m-1">
+                                     <a class="btn btn-sm btn-outline-info" href="{% url 'addreview' project.id%}" target="_blank">
+                                         Rate/Review
+                                     </a>
+                            </div>
+                       </div>
+                </div>
+                </div>
+            {%empty%}
+            <div class="text-center">
+                
+                        No records   
+            </div>
+            {%endfor%}
+            <!-- end images -->
+
+       
+        
+  
+
+    
+
+</div>
  
 </div>
 {% endblock %}
