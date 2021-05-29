@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'websites',
     'bootstrap4',
+    'mathfilters'
 ]
 
 MIDDLEWARE = [
