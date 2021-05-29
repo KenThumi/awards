@@ -11,9 +11,8 @@ import cloudinary.uploader
 def home(request):
     projects = Project.objects.all()
 
-    reviewform = ReviewForm()
 
-    ctx = {'projects':projects, 'reviewform':reviewform}
+    ctx = {'projects':projects}
 
     return render(request,'index.html', ctx)
 
@@ -111,18 +110,39 @@ def project(request,id):
 
 
 def addreview(request,id):
+    form = ReviewForm()
+
     if request.method == 'POST':
         form = ReviewForm(request.POST)
 
         if form.is_valid():
-            review = form.save(commit=False)
+            # review = form.save(commit=False)
+            created = Review.objects.get_or_create(project_id=id, defaults={
+                                                    'design':form.cleaned_data['design'],
 
-            # print(form.cleaned_data['project'])
+                                                    'usability':form.cleaned_data['usability'],
 
-            review.project = Project.objects.get(pk=id)
+                                                    'content': form.cleaned_data['content'],
+                                                    'count':1
+                                                } )
 
-            review.save()
+           
+            
+            if created[1] == False:
+                review = Review.objects.get(project_id=id)
+
+                review.design += form.cleaned_data['design']
+
+                review.usability += form.cleaned_data['usability']
+
+                review.content += form.cleaned_data['content']
+
+                review.count+=1
+
+                review.save()
 
             messages.success(request,'Review saved.')
+            return redirect('home')
 
-    return redirect('home')
+    return render(request, 'reviewform.html',{'form':form})
+

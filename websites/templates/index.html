@@ -47,14 +47,13 @@
                     </div>
                     <div class="card-footer">
                            <div class="m-1">
-                                    <button class="btn btn-sm btn-outline-info"  data-toggle="modal" data-target="#modal-{{project.id}}" >
+                                    <a class="btn btn-sm btn-outline-info" href="{% url 'addreview' project.id%}" target="_blank">
                                         Rate/Review
-                                    </button>
+                                    </a>
                            </div>
                     </div>
                 
             </div>
-            {% include '_review-form.html' %}
        </div>
      {%empty%}
      <div class="text-center">

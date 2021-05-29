@@ -84,8 +84,15 @@ class Review(models.Model):
                                     MinValueValidator(0)
                                 ])
 
+    count = models.IntegerField( null=True)
+
     project = models.OneToOneField(
                 Project,
                 on_delete=models.CASCADE,
                 related_name='review'
             )
+
+
+
+    def __str__(self):
+        return self.project.title

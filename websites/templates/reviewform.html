@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %} {% load static %}
+
+{% block content %}
+<div class="container my-2">
+  <div class="text-center">
+    <h4>Add Project</h4>
+    <hr>
+    <p>
+      <strong>Note:</strong> 0 to 10 in each category
+  </p>
+  </div>
+   <form   method="post" enctype="multipart/form-data">
+   {%csrf_token%}
+
+   {% bootstrap_form form%}
+   <input type="submit" class="btn btn-success btn-sm" value="submit">
+ </form>
+</div>
+{% endblock %}
