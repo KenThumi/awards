@@ -12,4 +12,5 @@ urlpatterns = [
     path('addproject/',views.addProject,name='addproject'),
     path('project/<int:id>', views.project, name='project'),
     path('addreview/<int:id>',views.addreview, name='addreview'),
+    path('search',views.search, name='search'),
 ]

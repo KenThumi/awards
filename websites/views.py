@@ -146,3 +146,20 @@ def addreview(request,id):
 
     return render(request, 'reviewform.html',{'form':form})
 
+
+
+
+@login_required
+def search(request):
+
+    if request.method=='POST':
+
+        needle = request.POST['search']
+
+        projects=Project.objects.filter(title__icontains=needle).all()
+
+        ctx = {'projects':projects, 'search_results':f'Search Results ({projects.count()})'}
+
+        return render(request, 'index.html',ctx)
+
+    return redirect('home')

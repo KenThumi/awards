@@ -18,6 +18,14 @@
        <div class="col-12">
         <hr>
        </div>
+        <!-- search results -->
+        {% if search_results %}
+        <div class="col-12 my-1">
+            <h4 class="text-center">
+                    {{search_results}}
+                </h4>
+        </div>
+        {%endif%}
 
         <!-- results -->
        {%for project in projects %}
@@ -31,7 +39,7 @@
                         <p class="text-muted">
                             {{ project.description |truncatechars:50 }}
                             <br>
-                            {% if project.description|length > 50 %}
+                            {% if project.description|length > 30 %}
                             <small>
                                    <a href="{% url 'project' project.id %}" target="_blank">
                                 Read More....
