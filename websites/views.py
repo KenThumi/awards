@@ -1,4 +1,4 @@
-from websites.models import Profile, Project
+from websites.models import Profile, Project, Review
 from django.contrib import messages
 from websites.email import send_welcome_email
 from websites.forms import ProfileForm, ProjectForm, ReviewForm, UserRegisterForm
@@ -108,3 +108,21 @@ def project(request,id):
 
 
     return render(request,'project.html',{'project':project})
+
+
+def addreview(request,id):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            review = form.save(commit=False)
+
+            # print(form.cleaned_data['project'])
+
+            review.project = Project.objects.get(pk=id)
+
+            review.save()
+
+            messages.success(request,'Review saved.')
+
+    return redirect('home')

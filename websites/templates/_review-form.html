@@ -5,9 +5,12 @@
       <div class="modal-content">
             <div class="row p-2">
                     <div class="col-12">
-                        <h4>Add Review</h4>
+                        <h4>Add Review </h4>
                         <hr>
-                        <form   method="post" enctype="multipart/form-data">
+                        <p>
+                            <strong>Note:</strong> 0 to 10 in each category
+                        </p>
+                        <form   method="post" enctype="multipart/form-data" action="{% url 'addreview' project.id %}">
                             {%csrf_token%}
                          
                             {% bootstrap_form reviewform%}
