@@ -1,5 +1,6 @@
 {%extends "base.html"%}
 {% load bootstrap4 %}
+{% load mathfilters %}
 {% block content %}
 {{block.super}}
 
@@ -23,8 +24,41 @@
                                 link <i class="fas fa-link ml-1"></i>
                             </a>
                         </p>
+                        <p>
+                            <hr>
+                            Overall Ratings(Out of 10): <br>
+                            {% if project.review %}
+                                Content - <strong>
+                                
+                                    {{project.review.content|div:project.review.count |floatformat:1 }}
+                                </strong>, <br>
+                                Design - <strong>
+                                    {{ project.review.design|div:project.review.count |floatformat:1 }}
+                                </strong> , <br>
+                                Usability - <strong>
+                                    {{ project.review.usability|div:project.review.count |floatformat:1 }}
+                                </strong>
+                            {%else%}
+                                Content - <strong>
+                                    
+                                    None
+                                </strong>, <br>
+                                Design - <strong>
+                                    None
+                                </strong> , <br>
+                                Usability - <strong>
+                                    None
+                                </strong>
+                            {%endif%}
+                        </p>
                     </div>
-                
+                    <div class="card-footer">
+                        <div class="m-1">
+                                 <a class="btn btn-sm btn-outline-info" href="{% url 'addreview' project.id%}" target="_blank">
+                                     Rate/Review
+                                 </a>
+                        </div>
+                   </div>
             </div>
             
        </div>
