@@ -114,7 +114,7 @@ def project(request,id):
 
     return render(request,'project.html',{'project':project})
 
-
+@login_required
 def addreview(request,id):
     form = ReviewForm()
 
