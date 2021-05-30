@@ -16,5 +16,6 @@ urlpatterns = [
 
     # DRF API routes
     path('api/profile/', views.ProfileList.as_view()),
+    path('api/projects/', views.ProjectList.as_view()),
     
 ]
