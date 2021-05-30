@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from websites.models import Profile, Project, Review
 from django.contrib import messages
 from websites.email import send_welcome_email
@@ -5,6 +6,11 @@ from websites.forms import ProfileForm, ProjectForm, ReviewForm, UserRegisterFor
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 import cloudinary.uploader
+# DRF imports
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer, UserSerializer
+from rest_framework import status
 
 
 @login_required
@@ -163,3 +169,17 @@ def search(request):
         return render(request, 'index.html',ctx)
 
     return redirect('home')
+
+
+
+
+# DRF API  views
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_merch = User.objects.all()
+        serializers = UserSerializer(all_merch, many=True)
+        return Response(serializers.data)
+
+
+
+
