@@ -20,6 +20,7 @@ class Profile(models.Model):
     def update_profile(cls,update_details,id):
         return cls.objects.filter(id=int(id)).update(profile_photo=update_details['profile_photo'],
                                                bio=update_details['bio'],
+                                               contact= update_details['contact'],
                                                user=update_details['user'])
 
     def delete_profile(self):
@@ -49,15 +50,16 @@ class Project(models.Model):
        
 
     @classmethod
-    def update_caption(cls,update_details,id):
+    def update_project(cls,update_details,id):
         return cls.objects.filter(id=int(id)).update(image=update_details['image'],
-                                               name=update_details['name'],
-                                               caption=update_details['caption'],
-                                               profile=update_details['profile'])
+                                               title=update_details['title'],
+                                               description=update_details['description'],
+                                               link=update_details['link'],
+                                               user=update_details['user'])
     
 
 
-    def delete_image(self):
+    def delete_project(self):
         return self.delete()
 
     class Meta:
