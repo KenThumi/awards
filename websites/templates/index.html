@@ -71,6 +71,10 @@
                                 </strong> , <br>
                                 Usability - <strong>
                                     {{ project.review.usability|div:project.review.count |floatformat:1 }}
+                                </strong>,<br>
+                                Overall - 
+                                <strong>
+                                    {{project.review.content|addition:project.review.design|addition:project.review.usability|div:project.review.count |div:3|floatformat:2}}
                                 </strong>
                             {%else%}
                                 Content - <strong>
@@ -81,6 +85,9 @@
                                     None
                                 </strong> , <br>
                                 Usability - <strong>
+                                    None
+                                </strong>, <br>
+                                Overall - <strong>
                                     None
                                 </strong>
                             {%endif%}
