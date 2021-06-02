@@ -14,6 +14,11 @@ Email:kenthumi@gmail.com
 ## Responsiveness
 The website is adapteble to any screen size.
 
+## API Endpoints
+1. https://ken-awwards.herokuapp.com/api/profile/ :This endpoint returns all the user profiles with information such   as the username, bio, projects of the user and profile picture
+
+2. https://ken-awwards.herokuapp.com/api/projects/ :This endpoint returns information pertaining to all the projects   posted in your application.
+
 ## Setup instructions
 Below are steps to follow:
 1. Open cli, navigate to your project folder and clone the project: <br/>
